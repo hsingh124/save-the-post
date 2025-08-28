@@ -1,0 +1,36 @@
+{
+  "name": "save-the-post",
+  "version": "1.0.0",
+  "description": "Instagram Saves Knowledge Dashboard - A personal knowledge dashboard for Instagram saves with LLM enrichment and hybrid search",
+  "private": true,
+  "packageManager": "pnpm@10.14.0",
+  "scripts": {
+    "build": "turbo build",
+    "dev": "turbo dev",
+    "lint": "turbo lint",
+    "test": "turbo test",
+    "type-check": "turbo type-check",
+    "clean": "turbo clean && rm -rf node_modules",
+    "format": "prettier --write \"**/*.{ts,tsx,md,json}\"",
+    "format:check": "prettier --check \"**/*.{ts,tsx,md,json}\""
+  },
+  "devDependencies": {
+    "turbo": "^2.5.6",
+    "prettier": "^3.0.0",
+    "eslint": "^8.0.0",
+    "@typescript-eslint/eslint-plugin": "^6.0.0",
+    "@typescript-eslint/parser": "^6.0.0"
+  },
+
+  "keywords": [
+    "instagram",
+    "knowledge-dashboard",
+    "llm",
+    "search",
+    "monorepo",
+    "nextjs",
+    "react-native"
+  ],
+  "author": "Harpreet Singh",
+  "license": "MIT"
+}
