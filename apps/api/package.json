@@ -11,28 +11,31 @@
     "type-check": "tsc --noEmit"
   },
   "dependencies": {
-    "fastify": "^4.24.0",
     "@fastify/cors": "^8.4.0",
     "@fastify/helmet": "^11.1.0",
+    "@fastify/multipart": "^8.0.0",
     "@fastify/rate-limit": "^9.0.0",
     "@fastify/swagger": "^8.12.0",
     "@fastify/swagger-ui": "^2.1.0",
-    "@fastify/multipart": "^8.0.0",
+    "@save-the-post/shared": "workspace:*",
+    "axios": "^1.11.0",
     "bullmq": "^5.0.0",
+    "dotenv": "^16.3.0",
+    "fastify": "^4.24.0",
     "ioredis": "^5.3.0",
     "pg": "^8.11.0",
     "pgvector": "^0.2.0",
-    "dotenv": "^16.3.0",
+    "pino-pretty": "^13.1.1",
     "zod": "^3.22.0"
   },
   "devDependencies": {
     "@types/node": "^20.0.0",
     "@types/pg": "^8.10.0",
-    "typescript": "^5.0.0",
-    "tsx": "^4.0.0",
-    "eslint": "^8.0.0",
     "@typescript-eslint/eslint-plugin": "^6.0.0",
-    "@typescript-eslint/parser": "^6.0.0"
+    "@typescript-eslint/parser": "^6.0.0",
+    "eslint": "^8.0.0",
+    "tsx": "^4.0.0",
+    "typescript": "^5.0.0"
   },
   "keywords": [
     "api",
