@@ -32,7 +32,7 @@ Transform your Instagram saves into a searchable, organized knowledge base. Impo
 - Node.js 18+ 
 - pnpm 8+
 - Docker and Docker Compose
-- Instagram Developer Account (for oEmbed API)
+- Instagram Developer Account (for oEmbed API) - **Optional for development**
 
 ### 1. Clone and Setup
 
@@ -61,6 +61,8 @@ cp env.example .env
 # Edit .env with your API keys and configuration
 ```
 
+**Note**: Instagram API key is optional for development. The system will automatically use a mock service if no `INSTAGRAM_ACCESS_TOKEN` is provided, allowing you to develop and test without Instagram API access.
+
 ### 4. Database Setup
 
 The database schema will be automatically created when PostgreSQL starts. You can also run it manually:
@@ -80,6 +82,21 @@ pnpm dev:web      # Next.js web app
 pnpm dev:api      # Fastify API
 pnpm dev:workers  # Background workers
 ```
+
+### 6. Testing Mock Instagram Service
+
+If you don't have an Instagram API key, you can test the mock service:
+
+```bash
+# Test the mock Instagram service
+cd apps/api
+npx ts-node test-mock-instagram.ts
+
+# Or test via API endpoint
+curl http://localhost:3001/status
+```
+
+The mock service generates realistic Instagram post data and allows you to develop the full application without API access.
 
 ## 📁 Project Structure
 

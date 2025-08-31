@@ -1,5 +1,6 @@
 import axios, { AxiosResponse } from 'axios';
 import { RateLimiter, INSTAGRAM_CONFIG, ERROR_MESSAGES } from '@save-the-post/shared';
+import { InstagramServiceBase } from './instagram-base';
 
 export interface InstagramOEmbedResponse {
   version: string;
@@ -37,7 +38,7 @@ export interface InstagramPostMetadata {
   };
 }
 
-export class InstagramService {
+export class InstagramService implements InstagramServiceBase {
   private accessToken: string;
   private rateLimiter: RateLimiter;
   private cache: Map<string, { data: InstagramPostMetadata; expiresAt: Date }> = new Map();

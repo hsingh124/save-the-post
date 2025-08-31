@@ -186,7 +186,7 @@ export const JobSchema = z.object({
   status: z.enum(['queued', 'running', 'done', 'error']),
   created_at: z.date(),
   updated_at: z.date()
-});
+}).required();
 
 export interface AuditLog {
   id: number;

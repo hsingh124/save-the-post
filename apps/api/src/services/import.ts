@@ -4,7 +4,8 @@ import { createUnzip } from 'zlib';
 import { extname } from 'path';
 import { parseInstagramExport, isValidInstagramPermalink, generateUUID } from '@save-the-post/shared';
 import { UPLOAD_LIMITS, ERROR_MESSAGES } from '@save-the-post/shared';
-import { InstagramService, InstagramPostMetadata } from './instagram';
+import { InstagramServiceBase } from './instagram-base';
+import { InstagramPostMetadata } from './instagram';
 
 export interface ImportJob {
   id: string;
@@ -37,9 +38,9 @@ export interface ImportedItem {
 }
 
 export class ImportService {
-  private instagramService: InstagramService;
+  private instagramService: InstagramServiceBase;
 
-  constructor(instagramService: InstagramService) {
+  constructor(instagramService: InstagramServiceBase) {
     this.instagramService = instagramService;
   }
 
@@ -254,6 +255,6 @@ export class ImportService {
 /**
  * Factory function to create import service
  */
-export function createImportService(instagramService: InstagramService): ImportService {
+export function createImportService(instagramService: InstagramServiceBase): ImportService {
   return new ImportService(instagramService);
 }

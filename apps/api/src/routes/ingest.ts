@@ -1,5 +1,5 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
-import { createInstagramService } from '../services/instagram';
+import { getInstagramService } from '../services/instagram-factory';
 import { config } from '../config';
 import { isValidInstagramPermalink } from '@save-the-post/shared';
 
@@ -13,7 +13,7 @@ interface IngestRequest {
 
 export async function registerIngestRoutes(server: FastifyInstance): Promise<void> {
   // Create Instagram service
-  const instagramService = createInstagramService(config.instagramAccessToken);
+  const instagramService = getInstagramService(config.instagramAccessToken);
 
   /**
    * POST /ingest

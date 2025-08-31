@@ -1,5 +1,6 @@
 import { isValidInstagramPermalink, generateUUID } from '@save-the-post/shared';
-import { InstagramService, InstagramPostMetadata } from './instagram';
+import { InstagramServiceBase } from './instagram-base';
+import { InstagramPostMetadata } from './instagram';
 import { BOT_PATTERNS, ERROR_MESSAGES } from '@save-the-post/shared';
 
 export interface BotMessage {
@@ -31,10 +32,10 @@ export interface CapturedItem {
 }
 
 export class BotService {
-  private instagramService: InstagramService;
+  private instagramService: InstagramServiceBase;
   private capturedItems: Map<string, CapturedItem> = new Map();
 
-  constructor(instagramService: InstagramService) {
+  constructor(instagramService: InstagramServiceBase) {
     this.instagramService = instagramService;
   }
 
@@ -293,6 +294,6 @@ export class BotService {
 /**
  * Factory function to create bot service
  */
-export function createBotService(instagramService: InstagramService): BotService {
+export function createBotService(instagramService: InstagramServiceBase): BotService {
   return new BotService(instagramService);
 }

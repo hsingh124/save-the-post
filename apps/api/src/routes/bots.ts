@@ -1,6 +1,6 @@
 import { FastifyInstance, FastifyRequest, FastifyReply } from 'fastify';
 import { createBotService } from '../services/bots';
-import { createInstagramService } from '../services/instagram';
+import { getInstagramService } from '../services/instagram-factory';
 import { config } from '../config';
 
 interface TelegramWebhookRequest {
@@ -73,7 +73,7 @@ interface WhatsAppWebhookRequest {
 
 export async function registerBotRoutes(server: FastifyInstance): Promise<void> {
   // Create services
-  const instagramService = createInstagramService(config.instagramAccessToken);
+  const instagramService = getInstagramService(config.instagramAccessToken);
   const botService = createBotService(instagramService);
 
   /**

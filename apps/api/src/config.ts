@@ -31,7 +31,7 @@ export const config = {
   uploadDir: process.env.UPLOAD_DIR || './uploads',
   
   // Instagram API
-  instagramAccessToken: process.env.INSTAGRAM_ACCESS_TOKEN || '',
+  instagramAccessToken: process.env.INSTAGRAM_ACCESS_TOKEN || null,
   instagramAppId: process.env.INSTAGRAM_APP_ID || '',
   instagramAppSecret: process.env.INSTAGRAM_APP_SECRET || '',
   
@@ -69,6 +69,7 @@ export const config = {
   enableVectorSearch: process.env.ENABLE_VECTOR_SEARCH !== 'false',
   enableBotIntegrations: process.env.ENABLE_BOT_INTEGRATIONS !== 'false',
   enableImportExport: process.env.ENABLE_IMPORT_EXPORT !== 'false',
+  enableMockInstagram: process.env.ENABLE_MOCK_INSTAGRAM === 'true' || !process.env.INSTAGRAM_ACCESS_TOKEN,
   
   // Monitoring
   enableMetrics: process.env.ENABLE_METRICS === 'true',
@@ -86,10 +87,14 @@ export const config = {
 // Validate required configuration
 export function validateConfig(): void {
   const required = [
-    'instagramAccessToken',
     'telegramBotToken',
     'discordBotToken'
   ];
+
+  // Instagram access token is optional - will use mock service if not provided
+  if (!config.instagramAccessToken) {
+    console.warn('⚠️ No Instagram access token provided - will use mock service');
+  }
 
   const missing = required.filter(key => !config[key as keyof typeof config]);
   

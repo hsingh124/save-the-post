@@ -3,7 +3,7 @@ import { MultipartFile } from '@fastify/multipart';
 import { writeFile, mkdir } from 'fs/promises';
 import { join } from 'path';
 import { createImportService } from '../services/import';
-import { createInstagramService } from '../services/instagram';
+import { getInstagramService } from '../services/instagram-factory';
 import { config } from '../config';
 import { JobSchema as ImportJobSchema } from '@save-the-post/shared';
 
@@ -24,7 +24,7 @@ interface ImportStatusRequest {
 
 export async function registerImportRoutes(server: FastifyInstance): Promise<void> {
   // Create services
-  const instagramService = createInstagramService(config.instagramAccessToken);
+  const instagramService = getInstagramService(config.instagramAccessToken);
   const importService = createImportService(instagramService);
 
   // Ensure upload directory exists
@@ -267,12 +267,25 @@ export async function registerImportRoutes(server: FastifyInstance): Promise<voi
           properties: {
             jobs: {
               type: 'array',
-              items: ImportJobSchema
+              items: {
+                type: 'object',
+                properties: {
+                  id: { type: 'string', format: 'uuid' },
+                  user_id: { type: 'string', format: 'uuid' },
+                  type: { type: 'string', enum: ['hydrate', 'tag', 'embed', 'import'] },
+                  payload: { type: 'object' },
+                  status: { type: 'string', enum: ['queued', 'running', 'done', 'error'] },
+                  created_at: { type: 'string', format: 'date-time' },
+                  updated_at: { type: 'string', format: 'date-time' }
+                },
+                required: ['id', 'type', 'payload', 'status', 'created_at', 'updated_at']
+              }
             },
             total: { type: 'number' },
             limit: { type: 'number' },
             offset: { type: 'number' }
-          }
+          },
+          required: ['jobs', 'total', 'limit', 'offset']
         }
       }
     }
